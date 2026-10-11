@@ -12,7 +12,6 @@ src-git routing https://github.com/openwrt/routing.git;openwrt-25.12
 src-git telephony https://github.com/openwrt/telephony.git;openwrt-25.12s
 rc-git video https://github.com/openwrt/video.git;openwrt-25.12
 src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main
-src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git;main
 src-git appfilter https://github.com/destan19/OpenAppFilter.git;master
 EOF
 
