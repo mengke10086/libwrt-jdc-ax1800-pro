@@ -21,6 +21,9 @@ rm -rf feeds/ package/feeds/
 ./scripts/feeds clean
 ./scripts/feeds update -a
 ./scripts/feeds install -a
+# 2. 核心修复：绕过 feeds 扫描，直接把 passwall2 主源码拉到 package 目录
+rm -rf package/luci-app-passwall2
+git clone --depth=1 -b main https://github.com/xiaorouji/openwrt-passwall2.git package/luci-app-passwall2
 
 echo ">>> [Feeds] Done."
 
