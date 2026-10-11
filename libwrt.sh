@@ -1,6 +1,29 @@
 #!/bin/bash
 set -e
 
+# ================= 强制注入 PassWall2 / AppFilter 源 =================
+echo ">>> [Feeds] Injecting passwall2 & appfilter sources..."
+cat > feeds.conf.default << 'EOF'
+src-git nss_packages https://github.com/qosmio/nss-packages.git
+src-git sqm_scripts_nss https://github.com/qosmio/sqm-scripts-nss.git
+src-git packages https://github.com/immortalwrt/packages.git;openwrt-25.12
+src-git luci https://github.com/immortalwrt/luci.git;openwrt-25.12
+src-git routing https://github.com/openwrt/routing.git;openwrt-25.12
+src-git telephony https://github.com/openwrt/telephony.git;openwrt-25.12s
+rc-git video https://github.com/openwrt/video.git;openwrt-25.12
+src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main
+src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git;main
+src-git appfilter https://github.com/destan19/OpenAppFilter.git;master
+EOF
+
+# 彻底清缓存，强制重拉
+rm -rf feeds/ package/feeds/
+./scripts/feeds clean
+./scripts/feeds update -a
+./scripts/feeds install -a
+
+echo ">>> [Feeds] Done."
+
 rm -rf package/emortal/luci-app-athena-led
 git clone --depth=1 https://github.com/NONGFAH/luci-app-athena-led package/luci-app-athena-led
 chmod +x package/luci-app-athena-led/root/etc/init.d/athena_led package/luci-app-athena-led/root/usr/sbin/athena-led
